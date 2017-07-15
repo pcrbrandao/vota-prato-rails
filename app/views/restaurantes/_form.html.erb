@@ -1,0 +1,18 @@
+<% if @restaurante.errors.any? %>
+    <ul>
+        <p>Corrija os erros e tente outra vez</p>
+        <% @restaurante.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_for @restaurante, html: {multipart: true} do |f| %>
+    Nome: <%= f.text_field :nome %><br/>
+    Endereço: <%= f.text_field :endereco %><br/>
+    Especialidade: <%= f.text_field :especialidade %><br/>
+    Foto<br/><%= f.file_field :foto %>
+    <%= f.submit %>
+<% end %>
+
+<%= link_to 'Voltar', action: 'index' %>

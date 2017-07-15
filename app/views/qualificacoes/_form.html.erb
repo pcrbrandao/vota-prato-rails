@@ -1,0 +1,53 @@
+<%= form_with(model: qualificacao, local: true) do |form| %>
+    <% if qualificacao.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(qualificacao.errors.count, "error") %> prohibited this qualificacao from being saved:</h2>
+            <ul>
+                <% qualificacao.errors.full_messages.each do |message| %>
+                    <li>
+                        <%= message %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <!-- <%= form.label :cliente_id %> -->
+        <% if @qualificacao.cliente %>
+            <%= form.hidden_field 'cliente_id' %>
+        <% else %>
+            <p><%= form.label :cliente_id %>
+                <%= form.collection_select(:cliente_id, @clientes, 
+                    :id, :nome, :prompt => true) %></p>
+            <!-- <%= form.number_field :cliente_id, id: :qualificacao_cliente_id %> -->
+        <% end %>
+    </div>
+
+    <div class="field">
+        <!-- <%= form.label :restaurante_id %> -->
+        <% if @qualificacao.restaurante %>
+            <%= form.hidden_field 'restaurante_id' %>
+        <% else %>
+            <p><%= form.label :restaurante_id %>
+                <%= form.collection_select(:restaurante_id, @restaurantes,
+                    :id, :nome, :prompt => true) %></p>
+        <% end %>
+        <!-- <%= form.number_field :restaurante_id, id: :qualificacao_restaurante_id %> -->
+    </div>
+
+    <div class="field">
+        <%= form.label :nota %>
+        <%= form.text_field :nota, id: :qualificacao_nota %>
+    </div>
+
+    <div class="field">
+        <%= form.label :valor_gasto %>
+        <%= form.text_field :valor_gasto, id: :qualificacao_valor_gasto %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>

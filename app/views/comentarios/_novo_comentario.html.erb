@@ -1,0 +1,16 @@
+<%= form_for Comentario.new, remote: true do |f| %>
+    <%= f.hidden_field :comentavel_id, value: comentavel.id %>
+    <%= f.hidden_field :comentavel_type, value: comentavel.class %>
+    
+    <h3><%= f.label :conteudo %></h3>
+    <%= f.text_area :conteudo %><br />
+    <%= f.submit %>
+<% end %>
+
+<% content_for :js do %>
+    $("#new_comentario").on("ajax:complete", function(evt, xhr, status) {
+            console.log("completo! ")
+            $("#comentarios").replaceWith(xhr.responseText);
+            $("#comentario_conteudo").val("");
+        });
+<% end %>
